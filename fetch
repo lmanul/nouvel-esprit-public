@@ -1,0 +1,26 @@
+#!/usr/bin/python3
+
+import os
+import re
+
+ENCLOSURE_URL_PATTERN = re.compile(r'\s*<enclosure\s+url="([^"]+)"\s+')
+
+lines = []
+with open("feed.xml") as f:
+  lines = f.readlines()
+  f.close()
+
+to_fetch = []
+for l in lines:
+  if "<enclosure" in l:
+    to_fetch.append(ENCLOSURE_URL_PATTERN.match(l).group(1))
+
+print("Total of " + str(len(to_fetch)) + " files to fetch")
+
+for url in to_fetch:
+  file_name = url.split("/")[-1]
+  if (os.path.exists(file_name)):
+    print("'" + file_name + "' already downloaded, skipping.")
+    continue
+  print("Downloading '" + file_name + "'...")
+  os.system("wget --quiet '" + url + "'")

@@ -3,3 +3,4 @@
 import os
 
 os.system("rm feed.xml && curl 'https://rss.art19.com/le-nouvel-esprit-public' > feed.xml")
+os.system("./fetch")
