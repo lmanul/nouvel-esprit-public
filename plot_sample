@@ -1,0 +1,30 @@
+#!/usr/bin/python3
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.io import wavfile
+
+NUMBER_OF_POINTS_TO_PLOT = 5000
+
+sampling_freq, audio = wavfile.read('sample.wav')
+print("Sampling freq = " + str(sampling_freq))
+print("Data type: " + str(audio.dtype))
+print("Duration: " + str(round(audio.shape[0] / float(sampling_freq), 3)) + " s")
+
+# Normalize the values
+audio = audio / (2. ** 15)
+
+# Extract the first 30 values for plotting
+audio = audio[:NUMBER_OF_POINTS_TO_PLOT]
+
+# Time axis
+x_values = np.arange(0, len(audio), 1) / float(sampling_freq)
+
+# Convert to milliseconds
+x_values *= 1000
+
+plt.plot(x_values, audio, color="black")
+plt.xlabel("Time (ms)")
+plt.ylabel("Amplitude")
+plt.title("Audio signal")
+plt.show()
