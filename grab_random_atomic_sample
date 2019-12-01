@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+import random
+import os
+import shlex
+import subprocess
+
+SAMPLE_DURATION_S = 2
+
+os.system("rm -f sample.mp3")
+
+episodes = os.listdir("episodes")
+e = episodes[int(random.random() * len(episodes))]
+
+print("I picked file '" + e + "'")
+
+path = "episodes/" + e
+duration_s = int(subprocess.check_output(shlex.split("mp3info -p '%S' " + path)))
+print("Total duration: " + str(duration_s))
+
+sample_start_s = int(random.random() * duration_s)
+
+os.system("ffmpeg -ss " + str(sample_start_s) + \
+    " -t " + str(SAMPLE_DURATION_S) + \
+    " -i " + path + " sample.mp3")
+
+os.system("vlc sample.mp3")
