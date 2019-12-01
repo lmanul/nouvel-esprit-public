@@ -7,7 +7,7 @@ import subprocess
 
 SAMPLE_DURATION_S = 2
 
-os.system("rm -f sample.mp3")
+os.system("rm -f sample.mp3 sample.wav")
 
 episodes = os.listdir("episodes")
 e = episodes[int(random.random() * len(episodes))]
@@ -24,4 +24,6 @@ os.system("ffmpeg -ss " + str(sample_start_s) + \
     " -t " + str(SAMPLE_DURATION_S) + \
     " -i " + path + " sample.mp3")
 
+os.system("mp32wav sample.mp3")
 os.system("vlc sample.mp3")
+os.system("./plot_sample")

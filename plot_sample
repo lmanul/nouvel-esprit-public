@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 
-NUMBER_OF_POINTS_TO_PLOT = 5000
+NUMBER_OF_POINTS_TO_PLOT = 10000
 
 sampling_freq, audio = wavfile.read('sample.wav')
 print("Sampling freq = " + str(sampling_freq))
